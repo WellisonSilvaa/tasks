@@ -1,6 +1,6 @@
-import Lato from '../assets/fonts/Lato/Lato-BoldItalic.ttf'
+// import Lato from '../assets/fonts/Lato/Lato-BoldItalic.ttf'
 export default {
-    fontFamily: Lato,
+    fontFamily: 'serif',
     colors: {
         secondary: '#FFF',
         mainText: '#222',

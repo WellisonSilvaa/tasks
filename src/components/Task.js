@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     },
     checkContainer: {
         width: '20%',
-        justifyContent: 'cemter',
+        justifyContent: 'center',
         alignItems: "center"
     },
     pending: {
