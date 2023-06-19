@@ -1,10 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { 
+    View, 
+    Text, 
+    StyleSheet, 
+    TouchableWithoutFeedback,
+    TouchableOpacity,
+} from "react-native";
+import 'react-native-gesture-handler/Swipeable';
 import { Icon } from "@rneui/themed";
 import commonStyles from '../commonStyles'
 
 import moment from "moment";
 import 'moment/locale/pt-br'
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default props => {
 
@@ -15,8 +24,38 @@ export default props => {
     const formattedDate = moment(date).locale('pt-br')
         .format('ddd, D [de] MMMM')
 
+    const getRightContent = () => {
+        return (
+            <View style={styles.right}>
+                <Icon
+                    name="trash"
+                    type="ionicon"
+                    size={20}
+                    color='#FFF'
+                />
+            </View>
+        )
+    }
+
+    const getLeftContent = () => {
+        return (
+            <TouchableOpacity style={styles.right}>
+                <Icon
+                    name="trash"
+                    type="ionicon"
+                    size={30}
+                    color='#FFF'
+                />
+            </TouchableOpacity>
+        )
+    }
+
     return (
-        <View style={styles.container}>
+        <GestureHandlerRootView>
+            <Swipeable 
+        renderRightActions={getRightContent}
+        renderLeftActions={getLeftContent}>
+            <View style={styles.container}>
             <TouchableWithoutFeedback
                 onPress={() => props.toggleTask(props.id)}
             >
@@ -29,6 +68,8 @@ export default props => {
                 <Text style={styles.date}>{formattedDate}</Text>
             </View>
         </View>
+        </Swipeable>
+        </GestureHandlerRootView>
     )
 }
 
@@ -90,5 +131,12 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.subText,
         fontSize: 12
+    },
+    right: {
+        backgroundColor: 'red',
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: 'flex-end',
+        paddingHorizontal: 20,
     }
 })
