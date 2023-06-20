@@ -13,7 +13,7 @@ import commonStyles from '../commonStyles'
 import moment from "moment";
 import 'moment/locale/pt-br'
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Directions, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default props => {
 
@@ -26,20 +26,8 @@ export default props => {
 
     const getRightContent = () => {
         return (
-            <View style={styles.right}>
-                <Icon
-                    name="trash"
-                    type="ionicon"
-                    size={20}
-                    color='#FFF'
-                />
-            </View>
-        )
-    }
-
-    const getLeftContent = () => {
-        return (
-            <TouchableOpacity style={styles.right}>
+            <TouchableOpacity style={styles.right}
+            onPress={() => props.onDelete && props.onDelete(props.id)}>
                 <Icon
                     name="trash"
                     type="ionicon"
@@ -50,14 +38,31 @@ export default props => {
         )
     }
 
+    const getLeftContent = () => {
+        return (
+            <View style={styles.left}>
+                <Icon
+                    name="trash"
+                    type="ionicon"
+                    size={20}
+                    color='#FFF'
+                    style={styles.excludeIcon}
+                />
+                <Text style={styles.excludeText}>Excluir</Text>
+            </View>
+        )
+    }
+    
+
     return (
         <GestureHandlerRootView>
             <Swipeable 
         renderRightActions={getRightContent}
-        renderLeftActions={getLeftContent}>
+        renderLeftActions={getLeftContent}
+        onSwipeableOpen={() => props.onDelete && props.onDelete(props.id)}>
             <View style={styles.container}>
             <TouchableWithoutFeedback
-                onPress={() => props.toggleTask(props.id)}
+                onPress={() => props.onToggleTask(props.id)}
             >
             <View style={styles.checkContainer}>
                 {getCheckView(props.doneAt)}
@@ -138,5 +143,20 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: 'flex-end',
         paddingHorizontal: 20,
+    },
+    left: {
+        backgroundColor: 'red',
+        flexDirection: "row",
+        alignItems: "center",
+        flex: 1
+    },
+    excludeText: {
+        fontFamily: commonStyles.fontFamily,
+        color: '#FFF',
+        fontSize: 20,
+        margin: 10
+    },
+    excludeIcon: {
+        marginLeft: 10,
     }
 })
