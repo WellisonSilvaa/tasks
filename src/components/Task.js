@@ -38,7 +38,7 @@ export default props => {
         )
     }
 
-    const getLeftContent = () => {
+   /*  const getLeftContent = () => {
         return (
             <View style={styles.left}>
                 <Icon
@@ -51,15 +51,15 @@ export default props => {
                 <Text style={styles.excludeText}>Excluir</Text>
             </View>
         )
-    }
+    } */
     
 
     return (
         <GestureHandlerRootView>
             <Swipeable 
-        renderRightActions={getRightContent}
-        renderLeftActions={getLeftContent}
-        onSwipeableOpen={() => props.onDelete && props.onDelete(props.id)}>
+        renderRightActions={getRightContent}/* 
+        renderLeftActions={getLeftContent} */
+        >
             <View style={styles.container}>
             <TouchableWithoutFeedback
                 onPress={() => props.onToggleTask(props.id)}
